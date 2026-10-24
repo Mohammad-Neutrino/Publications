@@ -1,40 +1,91 @@
-# Publications | Mohammad Ful Hossain Seikh
+# List of Publications
 
-This is the complete source for *List of Publications*. `main.tex` is the main document and `collaborative_publications.tex` contains the supplementary collaboration bibliography. The snapshot `INSPIRE-CiteAll.bib` is preserved as source/reference; the LaTeX document intentionally uses manually curated citations rather than an automated BibTeX layout.
+**Mohammad Ful Hossain Seikh**  
+Postdoctoral Researcher, Department of Physics & Astronomy, University of Kansas
 
-## Document structure
+[![Build Publications PDF](https://github.com/Mohammad-Neutrino/Publications/actions/workflows/build-publications.yml/badge.svg)](https://github.com/Mohammad-Neutrino/Publications/actions/workflows/build-publications.yml)
 
-1. First-author works and lead research contributions, with the workshop summary correctly classified as editorial writing.
-2. **Selected Collaborative Works:** 11 citations matched to the current academic CV.
-3. **Additional Collaborative Works:** the remaining collaboration papers by experiment and publication type. The 11 selected entries have been removed from these lists to avoid repetition. Empty journal subheadings were removed.
+**[View or download the latest Publications PDF](https://github.com/Mohammad-Neutrino/Publications/blob/trunk/Publications.pdf)** · [Personal website](https://mohammad-neutrino.github.io/) · [INSPIRE-HEP](https://inspirehep.net/authors/2014116) · [Google Scholar](https://scholar.google.com/citations?user=dSwfpWQAAAAJ) · [ORCID](https://orcid.org/0000-0002-4464-7354)
 
-## Working in Overleaf and synchronizing with GitHub
+This repository contains the LaTeX source and maintained PDF of my academic publication record in particle astrophysics, neutrino astronomy, and radio detection. It covers first-author and lead contributions, selected collaborative publications, and additional papers from experimental collaborations and multi-institution teams.
 
-1. Upload the project source files into an Overleaf project. Set **main.tex** as the main document and **XeLaTeX** as the compiler. `latexmkrc` also requests XeLaTeX for latexmk.
-2. Connect the Overleaf project using **Integrations > GitHub** (or the older **Menu > GitHub**) and choose **Create a new GitHub repository from this Overleaf project**. Overleaf does not directly pair an existing project with an independently existing GitHub repository.
-3. Edit in Overleaf. When ready, choose **GitHub > Push Overleaf changes to GitHub**. Built-in sync requires an explicit push; saving in Overleaf is not an automatic GitHub commit.
-4. GitHub Actions builds `main.pdf` on each source push, commits the updated PDF back to the repository (as your CV workflow does), and also provides a downloadable **Publications-PDF** artifact. The repository needs Actions permission to write contents. If Overleaf ignores hidden `.github` folders during ZIP import, add the workflow files directly in your GitHub repository after the first synchronization, then pull the repository changes into Overleaf.
+## Publication list
 
-If you already created a Publications repository, use **New Project > Import from GitHub** to create a linked Overleaf project from that existing repository, rather than attempting to pair two existing items.
+The document is organized into three parts:
 
-## Updating from INSPIRE
+1. **First-Author Works and Lead Research Contributions:** manuscripts in collaboration review, refereed journal articles, conference proceedings, and editorial or other scientific writing.
+2. **Selected Collaborative Works:** a curated selection of 11 collaborative publications, also highlighted in my academic CV.
+3. **Additional Collaborative Works:** the remaining papers organized by collaboration and publication type. Papers in the selected section are omitted here to avoid duplication.
 
-The file `INSPIRE-CiteAll.bib` is a retained snapshot, not an automatically updating source.
+The workshop editorial is classified with editorial writing rather than original research articles. Manuscripts in collaboration review are identified separately from published papers; their status and intended venues are subject to change.
 
-To compare current INSPIRE search results with the curated LaTeX lists, run on your own computer (Python 3.9+; no external packages):
+## Repository files
+
+| Path | Purpose |
+| --- | --- |
+| [`Publications.pdf`](Publications.pdf) | Latest compiled publication list, maintained by GitHub Actions. |
+| [`main.tex`](main.tex) | Main LaTeX document, including first-author and selected collaborative works. |
+| [`collaborative_publications.tex`](collaborative_publications.tex) | Additional collaborative publications, included by `main.tex`. |
+| [`latexmkrc`](latexmkrc) | XeLaTeX configuration for local and Overleaf compilation. |
+| [`.github/workflows/build-publications.yml`](.github/workflows/build-publications.yml) | Compiles and updates `Publications.pdf` following source changes. |
+| [`scripts/check_inspire.py`](scripts/check_inspire.py) | Read-only check for possible new records in INSPIRE-HEP. |
+| [`INSPIRE-CiteAll.bib`](INSPIRE-CiteAll.bib) | Reference BibTeX snapshot; not an automatically refreshed bibliography. |
+
+The publication entries in the PDF are manually curated. The document does not automatically typeset every entry from the BibTeX snapshot.
+
+## Updating from Overleaf
+
+This repository is connected to an Overleaf project. The regular editing workflow is:
+
+1. Open the linked Overleaf project. Set **`main.tex`** as the main document and **XeLaTeX** as the compiler.
+2. Pull any new GitHub changes into Overleaf before editing, when applicable.
+3. Edit `main.tex` and/or `collaborative_publications.tex`, then compile and check the PDF in Overleaf.
+4. Use Overleaf's **GitHub integration → Push Overleaf changes to GitHub** to publish the source changes to the `trunk` branch.
+5. The [Compile Publications PDF workflow](https://github.com/Mohammad-Neutrino/Publications/actions/workflows/build-publications.yml) builds `main.pdf`, copies it to **`Publications.pdf`**, and commits the updated PDF to the repository if the file changed.
+
+**Overleaf saving is not the same as pushing to GitHub.** The published `Publications.pdf` updates only after a source push triggers a successful workflow run. If the PDF has not updated, inspect the [Actions tab](https://github.com/Mohammad-Neutrino/Publications/actions) for compilation or repository-permission errors.
+
+Changes to `README.md` alone do not trigger a PDF rebuild.
+
+## Compiling locally
+
+Install a TeX distribution with XeLaTeX, `latexmk`, and the packages used by `main.tex`, including `academicons` and `fontawesome5`. Then run from the repository root:
+
+```bash
+latexmk main.tex
+```
+
+The repository's `latexmkrc` selects XeLaTeX. A local build produces `main.pdf`; **`Publications.pdf`** is the filename used for the committed GitHub version.
+
+## Checking for new publications in INSPIRE-HEP
+
+An optional Python script compares INSPIRE search results with the DOI, arXiv, and title information already in the curated LaTeX files. It helps identify **candidates for manual review**, not confirmed omissions.
+
+Using Python 3.9 or later, from the repository root:
 
 ```bash
 python3 scripts/check_inspire.py --output inspire_candidates.md
 ```
 
-The default search is `a Seikh, Mohammad Ful Hossain`. Verify that the query covers your author record at https://inspirehep.net/authors/2014116. You can change it with `--query 'YOUR AUTHOR SEARCH'`. Author matching for large collaborations is imperfect; no live API endpoint has been exercised during packaging. Read the candidate report and verify each result manually. The script **never overwrites** any `.tex` or `.bib` file.
+The script's default author query is `a Seikh, Mohammad Ful Hossain`. If necessary, supply a different query:
 
-You can also run the **Review INSPIRE Publications** action manually in GitHub Actions. It uploads an `INSPIRE-candidates` report artifact for inspection.
+```bash
+python3 scripts/check_inspire.py --query 'YOUR INSPIRE QUERY' --output inspire_candidates.md
+```
 
-## Maintenance rules
+The script uses the public INSPIRE literature API and Python's standard library. It does **not** edit the LaTeX sources, add papers, change authorship, or update the stored BibTeX snapshot. Its results should be checked against the [INSPIRE author record](https://inspirehep.net/authors/2014116), publisher information, and collaboration records before editing the publication list.
 
-- Add new first-/lead-author contributions to `main.tex`.
-- Promote exceptional collaboration papers into the selected list and remove the identical entry from the supplementary list, preferably matching DOI or arXiv ID.
-- Keep peer-reviewed articles, proceedings, editorial writing, and manuscripts distinct.
-- A new INSPIRE record should not automatically be considered a verified publication, nor should the full collaboration bibliography be replaced blindly from INSPIRE.
-- Review `INSPIRE-CiteAll.bib` periodically if you want to preserve a fresh archival export.
+The repository currently includes the checker script but **does not include a separate scheduled or manually triggered INSPIRE GitHub Actions workflow**. Run it locally unless such a workflow is added later.
+
+## Maintenance principles
+
+- Maintain **one entry per publication** across the selected and additional collaborative sections.
+- Add newly published first-author papers and proceedings to `main.tex` in the appropriate category.
+- For a selected collaborative paper, remove its matching entry from `collaborative_publications.tex` using DOI and/or arXiv identifiers to confirm the match.
+- Distinguish peer-reviewed articles, proceedings, editorials, preprints, and manuscripts in review.
+- Verify citation metadata and collaboration authorship before accepting INSPIRE candidates.
+- Do not publish confidential collaboration material or internal drafts without authorization.
+
+## Contact
+
+For corrections to the publication record, contact [fulhossain@ku.edu](mailto:fulhossain@ku.edu) or visit [my website](https://mohammad-neutrino.github.io/).

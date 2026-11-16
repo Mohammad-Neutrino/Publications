@@ -13,11 +13,11 @@ This repository contains the LaTeX source and maintained PDF of my academic publ
 
 The document is organized into three parts:
 
-1. **First-Author Works and Lead Research Contributions:** manuscripts in collaboration review, refereed journal articles, conference proceedings, and editorial or other scientific writing.
-2. **Selected Collaborative Works:** a curated selection of 11 collaborative publications, also highlighted in my academic CV.
+1. **First-Author Works and Lead Research Contributions:** preprints and submitted manuscripts, refereed journal articles, conference proceedings, and editorial or other scientific writing.
+2. **Selected Collaborative Works:** a curated selection of 12 collaborative publications, also highlighted in my academic CV.
 3. **Additional Collaborative Works:** the remaining papers organized by collaboration and publication type. Papers in the selected section are omitted here to avoid duplication.
 
-The workshop editorial is classified with editorial writing rather than original research articles. Manuscripts in collaboration review are identified separately from published papers; their status and intended venues are subject to change.
+The workshop editorial is classified with editorial writing rather than original research articles. Preprints and submitted manuscripts are identified separately from published papers; submission does not imply acceptance.
 
 ## Repository files
 

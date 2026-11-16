@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# LaTeX auxiliary and compilation files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.bbl
+*.blg
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Vim temporary files
+*.swp
+*.swo
+*~
+
+# INSPIRE synchronization reports
+inspire_sync.diff
+inspire_sync_report.md
+
+# Local backups
+*.bib.backup
+*.py.bak

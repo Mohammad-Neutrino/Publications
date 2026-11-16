@@ -29,6 +29,7 @@ The workshop editorial is classified with editorial writing rather than original
 | [`latexmkrc`](latexmkrc) | XeLaTeX configuration for local and Overleaf compilation. |
 | [`.github/workflows/build-publications.yml`](.github/workflows/build-publications.yml) | Compiles and updates `Publications.pdf` following source changes. |
 | [`scripts/check_inspire.py`](scripts/check_inspire.py) | Read-only check for possible new records in INSPIRE-HEP. |
+| [`scripts/sync_inspire.py`](scripts/sync_inspire.py) | Synchronizes publications against an INSPIRE BibTeX export, using the GitHub CV as a reference. Dry run by default. |
 | [`INSPIRE-CiteAll.bib`](INSPIRE-CiteAll.bib) | Reference BibTeX snapshot; not an automatically refreshed bibliography. |
 
 The publication entries in the PDF are manually curated. The document does not automatically typeset every entry from the BibTeX snapshot.
@@ -52,7 +53,7 @@ Changes to `README.md` alone do not trigger a PDF rebuild.
 Install a TeX distribution with XeLaTeX, `latexmk`, and the packages used by `main.tex`, including `academicons` and `fontawesome5`. Then run from the repository root:
 
 ```bash
-latexmk main.tex
+latexmk -xelatex -jobname=Publications main.tex
 ```
 
 The repository's `latexmkrc` selects XeLaTeX. A local build produces `main.pdf`; **`Publications.pdf`** is the filename used for the committed GitHub version.
@@ -76,6 +77,28 @@ python3 scripts/check_inspire.py --query 'YOUR INSPIRE QUERY' --output inspire_c
 The script uses the public INSPIRE literature API and Python's standard library. It does **not** edit the LaTeX sources, add papers, change authorship, or update the stored BibTeX snapshot. Its results should be checked against the [INSPIRE author record](https://inspirehep.net/authors/2014116), publisher information, and collaboration records before editing the publication list.
 
 The repository currently includes the checker script but **does not include a separate scheduled or manually triggered INSPIRE GitHub Actions workflow**. Run it locally unless such a workflow is added later.
+
+
+### Synchronizing an INSPIRE Cite-All export
+
+The synchronization script compares the local INSPIRE BibTeX snapshot with the curated publication list. It reads the latest `cv.tex` from the public CV repository on GitHub without modifying it.
+
+Preview proposed changes:
+
+```bash
+python3 scripts/sync_inspire.py INSPIRE-CiteAll.bib --dry-run
+cat inspire_sync_report.md
+```
+
+After reviewing the report and diff, apply changes locally:
+
+```bash
+python3 scripts/sync_inspire.py INSPIRE-CiteAll.bib --apply
+```
+
+The BibTeX snapshot currently contains 302 records, including previously verified proceedings absent from a later 278-record INSPIRE export. Do not replace the merged snapshot with a smaller export without reviewing missing records.
+
+The script does not commit or push changes to GitHub.
 
 ## Maintenance principles
 
